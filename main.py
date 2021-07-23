@@ -231,43 +231,46 @@ class Frame(wx.Frame):
         equit_up = float(self.input_equit_up.GetValue())
         skill_up = float(self.input_skill_up.GetValue())
         injury_reduce = float(self.input_injury_reduce.GetValue())
+
+        hujia = injury_reduce / 100 * 6000 / (1 - injury_reduce / 100 * 1.1)
+        # injury_reduce = hujia / (hujia * 1.1 + 6000)
+
         fire_att = float(self.input_fire_att.GetValue())
-        pass_1 = float(self.input_pass.GetValue())
+        pass_baifenbi = float(self.input_pass.GetValue())
+        pass_guding = pass_baifenbi / 100 * 1350
 
         min_uncrit = ((skill_power / 100) * min_hurt * (1 + main_attribut / 1000) + combat_power) * (
-                1 + skill_up / 100) * (1 + equit_up / 100) * (1 - (
-                    0.3 * (injury_reduce - pass_1) + 0.7 * (injury_reduce * (1 - pass_1 / 100))) / 100) * (
-                                 1 + fire_att / 100)
+                1 + skill_up / 100) * (1 + equit_up / 100) * (
+                             1 - ((hujia - pass_guding) / ((hujia - pass_guding) * 1.1 + 6000))) * (
+                             1 + fire_att / 100)
         max_uncrit = ((skill_power / 100) * max_hurt * (1 + main_attribut / 1000) + combat_power) * (
-                1 + skill_up / 100) * (1 + equit_up / 100) * (1 - (
-                    0.3 * (injury_reduce - pass_1) + 0.7 * (injury_reduce * (1 - pass_1 / 100))) / 100) * (
-                                 1 + fire_att / 100)
+                1 + skill_up / 100) * (1 + equit_up / 100) * (
+                             1 - ((hujia - pass_guding) / ((hujia - pass_guding) * 1.1 + 6000))) * (
+                             1 + fire_att / 100)
         min_avr_crit = ((((skill_power / 100) * min_hurt * (1 + main_attribut / 1000) + combat_power) * (
-                1 + skill_up / 100) * (1 + equit_up / 100) * (1 - (
-                    0.3 * (injury_reduce - pass_1) + 0.7 * (injury_reduce * (1 - pass_1 / 100))) / 100) * (
+                1 + skill_up / 100) * (1 + equit_up / 100) * (
+                                 1 - ((hujia - pass_guding) / ((hujia - pass_guding) * 1.1 + 6000))) * (
                                  crit_hurt / 100) * crit_rate) * (1 + fire_att / 100) + (
                                 ((skill_power / 100) * min_hurt * (1 + main_attribut / 1000) + combat_power) * (
                                 1 + skill_up / 100) * (1 + equit_up / 100) * (1 - (
-                                    0.3 * (injury_reduce - pass_1) + 0.7 * (
-                                        injury_reduce * (1 - pass_1 / 100))) / 100) * (
+                                (hujia - pass_guding) / ((hujia - pass_guding) * 1.1 + 6000))) * (
                                         100 - crit_rate)) * (1 + fire_att / 100)) / 100
         max_avr_crit = ((((skill_power / 100) * max_hurt * (1 + main_attribut / 1000) + combat_power) * (
-                1 + skill_up / 100) * (1 + equit_up / 100) * (1 - (
-                    0.3 * (injury_reduce - pass_1) + 0.7 * (injury_reduce * (1 - pass_1 / 100))) / 100) * (
+                1 + skill_up / 100) * (1 + equit_up / 100) * (
+                                 1 - ((hujia - pass_guding) / ((hujia - pass_guding) * 1.1 + 6000))) * (
                                  crit_hurt / 100) * crit_rate) * (1 + fire_att / 100) + (
                                 ((skill_power / 100) * max_hurt * (1 + main_attribut / 1000) + combat_power) * (
                                 1 + skill_up / 100) * (1 + equit_up / 100) * (1 - (
-                                    0.3 * (injury_reduce - pass_1) + 0.7 * (
-                                        injury_reduce * (1 - pass_1 / 100))) / 100) * (
+                                (hujia - pass_guding) / ((hujia - pass_guding) * 1.1 + 6000))) * (
                                         100 - crit_rate)) * (1 + fire_att / 100)) / 100
         min_crit = ((skill_power / 100) * min_hurt * (1 + main_attribut / 1000) + combat_power) * (
-                1 + skill_up / 100) * (1 + equit_up / 100) * (1 - (
-                    0.3 * (injury_reduce - pass_1) + 0.7 * (injury_reduce * (1 - pass_1 / 100))) / 100) * (
-                               crit_hurt / 100) * (1 + fire_att / 100)
+                1 + skill_up / 100) * (1 + equit_up / 100) * (
+                           1 - ((hujia - pass_guding) / ((hujia - pass_guding) * 1.1 + 6000))) * (
+                           crit_hurt / 100) * (1 + fire_att / 100)
         max_crit = ((skill_power / 100) * max_hurt * (1 + main_attribut / 1000) + combat_power) * (
-                1 + skill_up / 100) * (1 + equit_up / 100) * (1 - (
-                    0.3 * (injury_reduce - pass_1) + 0.7 * (injury_reduce * (1 - pass_1 / 100))) / 100) * (
-                               crit_hurt / 100) * (1 + fire_att / 100)
+                1 + skill_up / 100) * (1 + equit_up / 100) * (
+                           1 - ((hujia - pass_guding) / ((hujia - pass_guding) * 1.1 + 6000))) * (
+                           crit_hurt / 100) * (1 + fire_att / 100)
 
         self.input_results_min_uncrit.SetValue(str(min_uncrit))
         self.input_results_max_uncrit.SetValue(str(max_uncrit))
